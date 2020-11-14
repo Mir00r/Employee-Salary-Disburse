@@ -15,6 +15,9 @@ interface CompanyRepository : JpaRepository<Company, Long> {
     @Query("SELECT e FROM Company e WHERE (:q IS NULL OR e.name LIKE %:q%) AND e.deleted=FALSE")
     fun search(@Param("q") query: String, pageable: Pageable): Page<Company>
 
+    @Query("SELECT e FROM Company e WHERE (:q IS NULL OR e.name LIKE %:q%) AND (:bankAccountId IS NULL OR e.bankAccount.id=:bankAccountId) AND e.deleted=FALSE")
+    fun search(@Param("q") query: String, pageable: Pageable, @Param("bankAccountId") bankAccountId: Long?): Page<Company>
+
     @Query("SELECT e FROM Company e WHERE e.id=:id AND e.deleted=FALSE")
     fun find(@Param("id") id: Long): Optional<Company>
 

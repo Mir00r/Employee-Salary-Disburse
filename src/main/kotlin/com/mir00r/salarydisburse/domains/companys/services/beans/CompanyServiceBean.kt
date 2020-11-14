@@ -16,6 +16,10 @@ class CompanyServiceBean @Autowired constructor(
         private val companyRepository: CompanyRepository
 ) : CompanyService {
 
+    override fun search(query: String, page: Int, size: Int, bankAccountId: Long?): Page<Company> {
+        return this.companyRepository.search(query, PageAttr.getPageRequest(page, size), bankAccountId)
+    }
+
     override fun search(query: String, page: Int, size: Int): Page<Company> {
         return this.companyRepository.search(query, PageAttr.getPageRequest(page, size))
     }
