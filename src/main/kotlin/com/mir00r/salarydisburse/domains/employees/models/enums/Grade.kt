@@ -1,12 +1,16 @@
 package com.mir00r.salarydisburse.domains.employees.models.enums
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.mir00r.salarydisburse.commons.utils.ExceptionUtil
+import io.swagger.annotations.ApiModel
 
 /**
  * @project IntelliJ IDEA
  * @author mir00r on 14/11/20
  */
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+@ApiModel
 enum class Grade(
         var id: Byte,
         @JsonProperty("label") var label: String

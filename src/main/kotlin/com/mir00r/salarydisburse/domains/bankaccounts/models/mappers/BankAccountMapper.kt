@@ -5,6 +5,7 @@ import com.mir00r.salarydisburse.commons.utils.ExceptionUtil
 import com.mir00r.salarydisburse.domains.bankaccounts.models.dtos.BankAccountDto
 import com.mir00r.salarydisburse.domains.bankaccounts.models.entities.BankAccount
 import com.mir00r.salarydisburse.domains.bankaccounts.models.enums.AccountType
+import com.mir00r.salarydisburse.domains.banks.models.mappers.BankMapper
 import com.mir00r.salarydisburse.domains.banks.services.BankService
 import com.mir00r.salarydisburse.domains.common.models.mapper.BaseMapper
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,7 +13,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class BankAccountMapper @Autowired constructor(
-        private val bankService: BankService
+        private val bankService: BankService,
+        private val bankMapper: BankMapper
 ) : BaseMapper<BankAccount, BankAccountDto> {
 
     override fun map(entity: BankAccount): BankAccountDto {
@@ -26,7 +28,9 @@ class BankAccountMapper @Autowired constructor(
             accountNumber = entity.accountNumber
             currentBalance = entity.currentBalance
             accountType = AccountType.get(entity.accountType).id
+            accountTypeObj = AccountType.get(entity.accountType)
             bankId = entity.bank.id
+            bankInfo = bankMapper.map(entity.bank)
         }
 
         return dto

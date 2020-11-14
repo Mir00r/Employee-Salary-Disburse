@@ -2,9 +2,11 @@ package com.mir00r.salarydisburse.domains.employees.models.mappers
 
 import com.mir00r.salarydisburse.commons.Constants
 import com.mir00r.salarydisburse.commons.utils.ExceptionUtil
+import com.mir00r.salarydisburse.domains.bankaccounts.models.mappers.BankAccountMapper
 import com.mir00r.salarydisburse.domains.bankaccounts.services.BankAccountService
 import com.mir00r.salarydisburse.domains.employees.models.dtos.EmployeeDto
 import com.mir00r.salarydisburse.domains.common.models.mapper.BaseMapper
+import com.mir00r.salarydisburse.domains.companys.models.mappers.CompanyMapper
 import com.mir00r.salarydisburse.domains.companys.services.CompanyService
 import com.mir00r.salarydisburse.domains.employees.models.entities.Employee
 import com.mir00r.salarydisburse.domains.employees.models.enums.Grade
@@ -14,7 +16,9 @@ import org.springframework.stereotype.Component
 @Component
 class EmployeeMapper @Autowired constructor(
         private val bankAccountService: BankAccountService,
-        private val companyService: CompanyService
+        private val companyService: CompanyService,
+        private val bankAccountMapper: BankAccountMapper,
+        private val companyMapper: CompanyMapper
 ) : BaseMapper<Employee, EmployeeDto> {
 
     override fun map(entity: Employee): EmployeeDto {
@@ -29,8 +33,11 @@ class EmployeeMapper @Autowired constructor(
             phone = entity.phone
             address = entity.address
             gradId = Grade.get(entity.grad).id
+            gradeObj = Grade.get(entity.grad)
             bankAccountId = entity.bankAccount.id
+            bankAccountInfo = bankAccountMapper.map(entity.bankAccount)
             companyId = entity.company.id
+            companyInfo = companyMapper.map(entity.company)
         }
 
         return dto

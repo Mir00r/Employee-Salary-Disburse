@@ -2,6 +2,7 @@ package com.mir00r.salarydisburse.domains.companys.models.mappers
 
 import com.mir00r.salarydisburse.commons.Constants
 import com.mir00r.salarydisburse.commons.utils.ExceptionUtil
+import com.mir00r.salarydisburse.domains.bankaccounts.models.mappers.BankAccountMapper
 import com.mir00r.salarydisburse.domains.bankaccounts.services.BankAccountService
 import com.mir00r.salarydisburse.domains.companys.models.dtos.CompanyDto
 import com.mir00r.salarydisburse.domains.companys.models.entities.Company
@@ -11,7 +12,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class CompanyMapper @Autowired constructor(
-        private val bankAccountService: BankAccountService
+        private val bankAccountService: BankAccountService,
+        private val bankAccountMapper: BankAccountMapper
 ) : BaseMapper<Company, CompanyDto> {
 
     override fun map(entity: Company): CompanyDto {
@@ -26,6 +28,7 @@ class CompanyMapper @Autowired constructor(
             phone = entity.phone
             address = entity.address
             bankAccountId = entity.bankAccount.id
+            bankAccountInfo = bankAccountMapper.map(entity.bankAccount)
         }
 
         return dto
