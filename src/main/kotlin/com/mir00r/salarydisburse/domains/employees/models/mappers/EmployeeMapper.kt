@@ -69,27 +69,27 @@ class EmployeeMapper @Autowired constructor(
             Grade.SIX.id -> return dto.basicSalary
             Grade.FIVE.id -> {
                 val employee = this.employeeRepository.findByGrade(Grade.SIX.id)
-                if (employee.isNotEmpty()) return employee[0].basicSalary + 5000.0
+                if (employee.isNotEmpty()) return if (employee[0].basicSalary > 0.0) employee[0].basicSalary else dto.basicSalary + 5000.0
                 return dto.basicSalary + 5000.0
             }
             Grade.FOUR.id -> {
                 val employee = this.employeeRepository.findByGrade(Grade.FIVE.id)
-                if (employee.isNotEmpty()) return employee[0].basicSalary + 5000.0
+                if (employee.isNotEmpty()) return if (employee[0].basicSalary > 0.0) employee[0].basicSalary else dto.basicSalary + 5000.0
                 return dto.basicSalary + 5000.0
             }
             Grade.THREE.id -> {
                 val employee = this.employeeRepository.findByGrade(Grade.FOUR.id)
-                if (employee.isNotEmpty()) return employee[0].basicSalary + 5000.0
+                if (employee.isNotEmpty()) return if (employee[0].basicSalary > 0.0) employee[0].basicSalary else dto.basicSalary + 5000.0
                 return dto.basicSalary + 5000.0
             }
             Grade.TWO.id -> {
                 val employee = this.employeeRepository.findByGrade(Grade.THREE.id)
-                if (employee.isNotEmpty()) return employee[0].basicSalary + 5000.0
+                if (employee.isNotEmpty()) return if (employee[0].basicSalary > 0.0) employee[0].basicSalary else dto.basicSalary + 5000.0
                 return dto.basicSalary + 5000.0
             }
             else -> {
                 val employee = this.employeeRepository.findByGrade(Grade.TWO.id)
-                if (employee.isNotEmpty()) return employee[0].basicSalary + 5000.0
+                if (employee.isNotEmpty()) return if (employee[0].basicSalary > 0.0) employee[0].basicSalary else dto.basicSalary + 5000.0
                 return dto.basicSalary + 5000.0
             }
         }

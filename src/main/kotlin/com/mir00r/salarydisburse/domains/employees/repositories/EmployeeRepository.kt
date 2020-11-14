@@ -12,6 +12,9 @@ import java.util.*
 @Repository
 interface EmployeeRepository : JpaRepository<Employee, Long> {
 
+    @Query("SELECT e FROM Employee e WHERE (:q IS NULL OR e.name LIKE %:q%) AND (:companyId IS NULL OR e.company.id=:companyId) AND e.deleted=FALSE")
+    fun search(@Param("q") query: String, pageable: Pageable, @Param("companyId") companyId: Long?): Page<Employee>
+
     @Query("SELECT e FROM Employee e WHERE (:q IS NULL OR e.name LIKE %:q%) AND e.deleted=FALSE")
     fun search(@Param("q") query: String, pageable: Pageable): Page<Employee>
 
@@ -20,6 +23,9 @@ interface EmployeeRepository : JpaRepository<Employee, Long> {
 
     @Query("SELECT e FROM Employee e WHERE e.company.id=:companyId AND e.deleted=FALSE")
     fun findByCompany(@Param("companyId") companyId: Long): List<Employee>
+
+    @Query("SELECT e FROM Employee e WHERE e.company.id=:companyId AND e.deleted=FALSE")
+    fun findByCompany(@Param("companyId") companyId: Long, pageable: Pageable): Page<Employee>
 
     @Query("SELECT e FROM Employee e WHERE e.grad=:gradeId AND e.deleted=FALSE")
     fun findByGrade(@Param("gradeId") gradeId: Byte): List<Employee>

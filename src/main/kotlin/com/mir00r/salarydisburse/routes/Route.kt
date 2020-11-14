@@ -66,6 +66,7 @@ class Route {
             const val ADMIN_DELETE_COMPANY = "$ADMIN/companys/{id}/delete"
 
             // Employees
+            const val EMPLOYEES_SALARY_DISBURSE = "$API$VERSION/employees/salary/disburse"
             const val SEARCH_EMPLOYEES = "$API$VERSION/employees"
             const val CREATE_EMPLOYEE = "$API$VERSION/employees"
             const val FIND_EMPLOYEE = "$API$VERSION/employees/{id}"

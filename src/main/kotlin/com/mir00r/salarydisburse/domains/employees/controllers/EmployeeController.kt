@@ -20,7 +20,24 @@ class EmployeeController @Autowired constructor(
         private val employeeMapper: EmployeeMapper
 ) : CrudController<EmployeeDto> {
 
+    @PatchMapping(Route.V1.EMPLOYEES_SALARY_DISBURSE)
+    fun salaryDisburse(@RequestParam("basic_salary", defaultValue = "5000", required = true) basicSalary: Double,
+                       @RequestParam("company_id", defaultValue = "1", required = true) companyId: Long): ResponseEntity<List<EmployeeDto>> {
+        val entities = this.employeeService.salaryDisburse(basicSalary, companyId)
+        return ResponseEntity.ok(entities.map { this.employeeMapper.map(it) })
+    }
+
+
     @GetMapping(Route.V1.SEARCH_EMPLOYEES)
+    fun search(@RequestParam("q", defaultValue = "") query: String,
+               @RequestParam("page", defaultValue = "0") page: Int,
+               @RequestParam("size", defaultValue = "10") size: Int,
+               @RequestParam("company_id", defaultValue = "1", required = false) companyId: Long?): ResponseEntity<Page<EmployeeDto>> {
+        val entities = this.employeeService.search(query, page, size, companyId)
+        return ResponseEntity.ok(entities.map { this.employeeMapper.map(it) })
+    }
+
+    //@GetMapping(Route.V1.SEARCH_EMPLOYEES)
     override fun search(@RequestParam("q", defaultValue = "") query: String,
                         @RequestParam("page", defaultValue = "0") page: Int,
                         @RequestParam("size", defaultValue = "10") size: Int): ResponseEntity<Page<EmployeeDto>> {
