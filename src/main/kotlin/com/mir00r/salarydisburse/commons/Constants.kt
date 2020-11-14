@@ -43,5 +43,6 @@ class Constants {
         const val EMPLOYEE = "Employee"
         const val BANK = "Bank"
         const val BANK_ACCOUNT = "Bank Account"
+        const val COMPANY = "Company"
     }
 }

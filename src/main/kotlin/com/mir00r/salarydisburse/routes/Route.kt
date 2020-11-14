@@ -48,6 +48,38 @@ class Route {
             const val ADMIN_UPDATE_BANKACCOUNT_PAGE = "$ADMIN/bankaccounts/{id}/update"
             const val ADMIN_UPDATE_BANKACCOUNT = "$ADMIN/bankaccounts/{id}"
             const val ADMIN_DELETE_BANKACCOUNT = "$ADMIN/bankaccounts/{id}/delete"
+
+            // Companys
+            const val SEARCH_COMPANYS = "$API$VERSION/companys"
+            const val CREATE_COMPANY = "$API$VERSION/companys"
+            const val FIND_COMPANY = "$API$VERSION/companys/{id}"
+            const val UPDATE_COMPANY = "$API$VERSION/companys/{id}"
+            const val DELETE_COMPANY = "$API$VERSION/companys/{id}"
+
+            // Companys (Admin)
+            const val ADMIN_SEARCH_COMPANYS = "$ADMIN/companys"
+            const val ADMIN_CREATE_COMPANY_PAGE = "$ADMIN/companys/create"
+            const val ADMIN_CREATE_COMPANY = "$ADMIN/companys"
+            const val ADMIN_FIND_COMPANY = "$ADMIN/companys/{id}"
+            const val ADMIN_UPDATE_COMPANY_PAGE = "$ADMIN/companys/{id}/update"
+            const val ADMIN_UPDATE_COMPANY = "$ADMIN/companys/{id}"
+            const val ADMIN_DELETE_COMPANY = "$ADMIN/companys/{id}/delete"
+
+            // Employees
+            const val SEARCH_EMPLOYEES = "$API$VERSION/employees"
+            const val CREATE_EMPLOYEE = "$API$VERSION/employees"
+            const val FIND_EMPLOYEE = "$API$VERSION/employees/{id}"
+            const val UPDATE_EMPLOYEE = "$API$VERSION/employees/{id}"
+            const val DELETE_EMPLOYEE = "$API$VERSION/employees/{id}"
+
+            // Employees (Admin)
+            const val ADMIN_SEARCH_EMPLOYEES = "$ADMIN/employees"
+            const val ADMIN_CREATE_EMPLOYEE_PAGE = "$ADMIN/employees/create"
+            const val ADMIN_CREATE_EMPLOYEE = "$ADMIN/employees"
+            const val ADMIN_FIND_EMPLOYEE = "$ADMIN/employees/{id}"
+            const val ADMIN_UPDATE_EMPLOYEE_PAGE = "$ADMIN/employees/{id}/update"
+            const val ADMIN_UPDATE_EMPLOYEE = "$ADMIN/employees/{id}"
+            const val ADMIN_DELETE_EMPLOYEE = "$ADMIN/employees/{id}/delete"
         }
     }
 }
