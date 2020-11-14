@@ -26,6 +26,10 @@ class CompanyDto : BaseDto() {
     @ApiModelProperty(notes = "provide company address", example = "Badda")
     var address: String? = null
 
+    @JsonProperty("total_paid_salary")
+    @ApiModelProperty(notes = "provide company total paid salary amount", example = "1000.0")
+    var totalPaidSalary: Double = 0.0
+
     @NotNull
     @JsonProperty("bank_account_id")
     @ApiModelProperty(notes = "provide company bank account id number", example = "1", required = true)

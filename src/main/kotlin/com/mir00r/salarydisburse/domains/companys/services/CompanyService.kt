@@ -6,4 +6,5 @@ import org.springframework.data.domain.Page
 
 interface CompanyService : CrudService<Company> {
     fun search(query: String, page: Int, size: Int, bankAccountId: Long?): Page<Company>
+    fun salaryTransfer(companyId: Long, amount: Double): Company
 }

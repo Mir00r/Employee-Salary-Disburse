@@ -50,6 +50,7 @@ class Route {
             const val ADMIN_DELETE_BANKACCOUNT = "$ADMIN/bankaccounts/{id}/delete"
 
             // Companys
+            const val COMPANYS_SALARY_TRANSFER = "$API$VERSION/companys/salary/transfer"
             const val SEARCH_COMPANYS = "$API$VERSION/companys"
             const val CREATE_COMPANY = "$API$VERSION/companys"
             const val FIND_COMPANY = "$API$VERSION/companys/{id}"

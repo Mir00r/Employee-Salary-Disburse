@@ -27,6 +27,7 @@ class CompanyMapper @Autowired constructor(
             name = entity.name
             phone = entity.phone
             address = entity.address
+            totalPaidSalary = entity.totalPaidSalary
             bankAccountId = entity.bankAccount.id
             bankAccountInfo = bankAccountMapper.map(entity.bankAccount)
         }
@@ -41,6 +42,7 @@ class CompanyMapper @Autowired constructor(
             name = dto.name
             phone = dto.phone
             address = dto.address
+            totalPaidSalary = dto.totalPaidSalary
         }
         return entity
     }

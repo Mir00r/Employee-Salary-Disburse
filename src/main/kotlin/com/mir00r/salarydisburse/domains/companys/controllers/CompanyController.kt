@@ -20,11 +20,19 @@ class CompanyController @Autowired constructor(
         private val companyMapper: CompanyMapper
 ) : CrudController<CompanyDto> {
 
+    @PatchMapping(Route.V1.COMPANYS_SALARY_TRANSFER)
+    fun salaryTransfer(
+            @RequestParam("amount", required = true, defaultValue = "5000") amount: Double,
+            @RequestParam("company_id", required = true, defaultValue = "1") companyId: Long): ResponseEntity<CompanyDto> {
+        val entity = this.companyService.salaryTransfer(companyId, amount)
+        return ResponseEntity.ok(this.companyMapper.map(entity))
+    }
+
     @GetMapping(Route.V1.SEARCH_COMPANYS)
     fun search(@RequestParam("q", defaultValue = "") query: String,
-                        @RequestParam("page", defaultValue = "0") page: Int,
-                        @RequestParam("size", defaultValue = "10") size: Int,
-                        @RequestParam("bank_account_id", required = false) bankAccountId: Long?): ResponseEntity<Page<CompanyDto>> {
+               @RequestParam("page", defaultValue = "0") page: Int,
+               @RequestParam("size", defaultValue = "10") size: Int,
+               @RequestParam("bank_account_id", required = false) bankAccountId: Long?): ResponseEntity<Page<CompanyDto>> {
         val entities = this.companyService.search(query, page, size, bankAccountId)
         return ResponseEntity.ok(entities.map { this.companyMapper.map(it) })
     }

@@ -21,4 +21,6 @@ class Company : BaseEntity() {
 
     @ManyToOne
     lateinit var bankAccount: BankAccount
+
+    var totalPaidSalary: Double = 0.toDouble()
 }
