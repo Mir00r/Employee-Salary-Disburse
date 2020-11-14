@@ -16,6 +16,14 @@ class EmployeeServiceBean @Autowired constructor(
         private val employeeRepository: EmployeeRepository
 ) : EmployeeService {
 
+    override fun findByCompany(companyId: Long): List<Employee> {
+        return this.employeeRepository.findByCompany(companyId)
+    }
+
+    override fun findByGrade(gradeId: Byte): List<Employee> {
+        return this.employeeRepository.findByGrade(gradeId)
+    }
+
     override fun search(query: String, page: Int, size: Int): Page<Employee> {
         return this.employeeRepository.search(query, PageAttr.getPageRequest(page, size))
     }

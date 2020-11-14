@@ -18,4 +18,9 @@ interface EmployeeRepository : JpaRepository<Employee, Long> {
     @Query("SELECT e FROM Employee e WHERE e.id=:id AND e.deleted=FALSE")
     fun find(@Param("id") id: Long): Optional<Employee>
 
+    @Query("SELECT e FROM Employee e WHERE e.company.id=:companyId AND e.deleted=FALSE")
+    fun findByCompany(@Param("companyId") companyId: Long): List<Employee>
+
+    @Query("SELECT e FROM Employee e WHERE e.grad=:gradeId AND e.deleted=FALSE")
+    fun findByGrade(@Param("gradeId") gradeId: Byte): List<Employee>
 }

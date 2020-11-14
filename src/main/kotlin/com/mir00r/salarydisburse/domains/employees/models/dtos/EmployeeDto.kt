@@ -28,6 +28,18 @@ class EmployeeDto : BaseDto() {
     @ApiModelProperty(notes = "provide company address", example = "Badda")
     var address: String? = null
 
+    @JsonProperty("basic_salary")
+    @ApiModelProperty(notes = "provide bank balance amount", example = "100000.0")
+    var basicSalary: Double = 0.0
+
+    @JsonProperty("house_rent")
+    @ApiModelProperty(notes = "provide bank balance amount", example = "100.0")
+    var houseRent: Double = 0.0
+
+    @JsonProperty("medical_allowance")
+    @ApiModelProperty(notes = "provide bank balance amount", example = "10.0")
+    var medicalAllowance: Double = 0.0
+
     @NotNull
     @JsonProperty("grade_id")
     @ApiModelProperty(notes = "provide employee grade id number", example = "1", required = true)

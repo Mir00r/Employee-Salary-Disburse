@@ -28,4 +28,10 @@ class Employee : BaseEntity() {
 
     @ManyToOne
     lateinit var bankAccount: BankAccount
+
+    var basicSalary: Double = 0.toDouble()
+
+    var houseRent: Double = 0.toDouble()
+
+    var medicalAllowance: Double = 0.toDouble()
 }

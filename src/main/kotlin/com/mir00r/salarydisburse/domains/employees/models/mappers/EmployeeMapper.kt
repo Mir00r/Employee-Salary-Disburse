@@ -10,6 +10,7 @@ import com.mir00r.salarydisburse.domains.companys.models.mappers.CompanyMapper
 import com.mir00r.salarydisburse.domains.companys.services.CompanyService
 import com.mir00r.salarydisburse.domains.employees.models.entities.Employee
 import com.mir00r.salarydisburse.domains.employees.models.enums.Grade
+import com.mir00r.salarydisburse.domains.employees.repositories.EmployeeRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
@@ -18,7 +19,8 @@ class EmployeeMapper @Autowired constructor(
         private val bankAccountService: BankAccountService,
         private val companyService: CompanyService,
         private val bankAccountMapper: BankAccountMapper,
-        private val companyMapper: CompanyMapper
+        private val companyMapper: CompanyMapper,
+        private val employeeRepository: EmployeeRepository
 ) : BaseMapper<Employee, EmployeeDto> {
 
     override fun map(entity: Employee): EmployeeDto {
@@ -32,6 +34,9 @@ class EmployeeMapper @Autowired constructor(
             name = entity.name
             phone = entity.phone
             address = entity.address
+            basicSalary = entity.basicSalary
+            houseRent = entity.houseRent
+            medicalAllowance = entity.medicalAllowance
             gradId = Grade.get(entity.grad).id
             gradeObj = Grade.get(entity.grad)
             bankAccountId = entity.bankAccount.id
@@ -52,7 +57,42 @@ class EmployeeMapper @Autowired constructor(
             name = dto.name
             phone = dto.phone
             address = dto.address
+            basicSalary = setEmployeeSalaryDependsGrad(dto)
+            houseRent = (dto.basicSalary * 20) / 100
+            medicalAllowance = (dto.basicSalary * 15) / 100
         }
         return entity
+    }
+
+    private fun setEmployeeSalaryDependsGrad(dto: EmployeeDto): Double {
+        when (dto.gradId) {
+            Grade.SIX.id -> return dto.basicSalary
+            Grade.FIVE.id -> {
+                val employee = this.employeeRepository.findByGrade(Grade.SIX.id)
+                if (employee.isNotEmpty()) return employee[0].basicSalary + 5000.0
+                return dto.basicSalary + 5000.0
+            }
+            Grade.FOUR.id -> {
+                val employee = this.employeeRepository.findByGrade(Grade.FIVE.id)
+                if (employee.isNotEmpty()) return employee[0].basicSalary + 5000.0
+                return dto.basicSalary + 5000.0
+            }
+            Grade.THREE.id -> {
+                val employee = this.employeeRepository.findByGrade(Grade.FOUR.id)
+                if (employee.isNotEmpty()) return employee[0].basicSalary + 5000.0
+                return dto.basicSalary + 5000.0
+            }
+            Grade.TWO.id -> {
+                val employee = this.employeeRepository.findByGrade(Grade.THREE.id)
+                if (employee.isNotEmpty()) return employee[0].basicSalary + 5000.0
+                return dto.basicSalary + 5000.0
+            }
+            else -> {
+                val employee = this.employeeRepository.findByGrade(Grade.TWO.id)
+                if (employee.isNotEmpty()) return employee[0].basicSalary + 5000.0
+                return dto.basicSalary + 5000.0
+            }
+        }
+
     }
 }
